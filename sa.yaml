@@ -16,7 +16,7 @@ metadata:
 subjects:
 - kind: ServiceAccount
   name: roboshop-mysql-secret-reader
-  apiGroup: rbac.authorization.k8s.io 
+  apiGroup: ""
 roleRef:
   kind: Role
   name: roboshop-sa
@@ -26,6 +26,7 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: roboshop-sa
+  namespace: roboshop
 spec:
   serviceAccount: roboshop-mysql-secret-reader
   containers:
