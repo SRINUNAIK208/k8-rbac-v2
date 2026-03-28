@@ -3,7 +3,7 @@ kind: ClusterRole
 metadata:
   name: roboshop-cluster 
 rules:
-- apiVersion: [""]
+- apiGroups: [""]
   resources: ["persistentvolumes"]
   verbs: ["list","watch","get"]
 ---
