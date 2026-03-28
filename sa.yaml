@@ -1,0 +1,35 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+ namespace: roboshop
+ name: roboshop-sa
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["list","watch","get"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  namespace: roboshop
+  name: roboshop-sa
+subjects:
+- kind: ServiceAccount
+  name: roboshop-mysql-secret-reader
+  apiGroup: rbac.authorization.k8s.io 
+roleRef:
+  kind: Role
+  name: roboshop-sa
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: roboshop-sa
+spec:
+  serviceAccount: roboshop-mysql-secret-reader
+  containers:
+  - name: aws-cli
+    image: amazon/aws-cli
+    command: ["sleep","10000"]
+
